@@ -40,16 +40,17 @@ namespace stoplicht
 
             switchButton = new GpioButton(21);
 
-            switchButton.GetPin. += SwitchButton_ValueChanged;
+            switchButton.GetPin.ValueChanged += SwitchButton_ValueChanged;
 
             redLed.Enable();
         }
 
         private void SwitchButton_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
         {
-            if (args.Edge)
-
-            StartTrafficLight().Wait();
+            if (args.Edge == GpioPinEdge.FallingEdge)
+            {
+                StartTrafficLight().Wait();
+            }
         }
 
         private async Task StartTrafficLight()
