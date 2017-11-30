@@ -10,7 +10,6 @@ namespace stoplicht
     class GpioButton
     {
         private readonly GpioPin Pin;
-        //private GpioPinValue PinValue;
 
         public GpioButton(int pinID)
         {
@@ -23,7 +22,6 @@ namespace stoplicht
                 Pin.SetDriveMode(GpioPinDriveMode.InputPullUp);
             }
         }
-
 
         public GpioPin GetPin
         {
