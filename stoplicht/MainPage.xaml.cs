@@ -29,12 +29,13 @@ namespace stoplicht
         {
             this.InitializeComponent();
 
+            //creating leds
             redLed = new Led(13);
             yellowLed = new Led(6);
             greenLed = new Led(5);
 
+            //creating button
             switchButton = new GpioButton(21);
-
             switchButton.GetPin.ValueChanged += SwitchButton_ValueChanged;
 
             redLed.Enable();
@@ -42,6 +43,7 @@ namespace stoplicht
 
         private void SwitchButton_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
         {
+            //check buttonDown
             if (args.Edge == GpioPinEdge.FallingEdge)
             {
                 StartTrafficLight().Wait();
@@ -50,12 +52,17 @@ namespace stoplicht
 
         private async Task StartTrafficLight()
         {
+            //switch to green
             redLed.Disable();
             greenLed.Enable();
             await Task.Delay(10000);
+            
+            //switch to yellow
             greenLed.Disable();
             yellowLed.Enable();
             await Task.Delay(3000);
+
+            //switch to red
             yellowLed.Disable();
             redLed.Enable();
         }
